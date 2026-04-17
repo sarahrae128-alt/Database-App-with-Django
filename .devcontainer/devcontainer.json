@@ -23,9 +23,12 @@
   },
   "portsAttributes": {
     "8000": {
-      "label": "Application",
+      "label": "Django App",
       "onAutoForward": "openPreview"
     }
   },
-  "forwardPorts": [8000]
+  "forwardPorts": [
+    8000
+  ],
+  "postStartCommand": "python manage.py runserver 0.0.0.0:8000 > /tmp/django.log 2>&1 &"
 }
