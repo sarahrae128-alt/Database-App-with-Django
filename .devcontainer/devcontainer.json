@@ -30,5 +30,5 @@
   "forwardPorts": [
     8000
   ],
-  "postStartCommand": "python manage.py runserver 0.0.0.0:8000 > /tmp/django.log 2>&1 &"
+  "postStartCommand": "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 > /tmp/django.log 2>&1 &"
 }
