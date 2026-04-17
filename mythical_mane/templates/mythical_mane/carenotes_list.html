@@ -1,0 +1,38 @@
+{% extends "mythical_mane/base.html" %}
+{% block title %}Care Notes{% endblock %}
+{% block extra_css %}<script src="https://cdn.tailwindcss.com"></script>{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-10 mt-16">
+  <div class="flex justify-between items-end mb-8">
+    <div><p class="text-xs font-semibold tracking-widest uppercase text-pink-500 mb-1">Django-Owned Model</p>
+    <h1 class="text-4xl font-light" style="font-family:'Cormorant Garamond',serif;">Care Notes</h1></div>
+    <div class="flex gap-3">
+      <a href="/carenotes/create/" class="px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-sm rounded-full hover:opacity-90 transition">+ New Note</a>
+      <a href="/" class="text-sm text-pink-500 hover:text-pink-700">&larr; Dashboard</a>
+    </div>
+  </div>
+  {% if messages %}{% for m in messages %}<div class="mb-4 px-4 py-3 rounded-2xl bg-green-50 text-green-700 text-sm">{{ m }}</div>{% endfor %}{% endif %}
+  <div class="space-y-4">
+    {% for n in notes %}
+    <div class="bg-white rounded-3xl border border-purple-100 shadow-sm px-6 py-5 flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center text-pink-700 font-semibold flex-shrink-0">{{ n.patient.name|first|upper }}</div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="font-medium text-gray-800">{{ n.patient.name }}</span>
+          <span class="text-xs text-gray-400">{{ n.created_at|date:"M d, Y" }}</span>
+          {% if n.resolved %}<span class="px-2 py-0.5 rounded-full text-xs bg-green-50 text-green-600 font-medium">Resolved</span>
+          {% else %}<span class="px-2 py-0.5 rounded-full text-xs bg-pink-50 text-pink-600 font-medium">Open</span>{% endif %}
+        </div>
+        <p class="text-sm text-gray-600">{{ n.note }}</p>
+        {% if n.follow_up_date %}<p class="text-xs text-purple-400 mt-1">Follow-up: {{ n.follow_up_date|date:"M d, Y" }}</p>{% endif %}
+      </div>
+      <div class="flex gap-3 flex-shrink-0">
+        <a href="/carenotes/{{ n.pk }}/edit/" class="text-purple-500 hover:text-purple-700 text-xs font-medium">Edit</a>
+        <a href="/carenotes/{{ n.pk }}/delete/" class="text-red-400 hover:text-red-600 text-xs font-medium">Delete</a>
+      </div>
+    </div>
+    {% empty %}<div class="text-center py-12 text-gray-400 italic">No care notes yet. <a href="/carenotes/create/" class="text-pink-500">Create one &rarr;</a></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

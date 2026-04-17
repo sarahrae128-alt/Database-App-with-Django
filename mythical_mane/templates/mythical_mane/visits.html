@@ -1,0 +1,33 @@
+{% extends "mythical_mane/base.html" %}
+{% block title %}Visits — Mythical Mane{% endblock %}
+{% block content %}
+<div class="mm-dashboard">
+  <div class="mm-dash-header fade-up">
+    <div>
+      <p class="mm-label">Database</p>
+      <h1 class="mm-dash-title">Recent Visits</h1>
+    </div>
+    <a href="/" class="mm-btn mm-btn--ghost">&larr; Dashboard</a>
+  </div>
+  <div class="mm-table-wrap glass fade-up delay-1">
+    <table class="mm-table">
+      <thead>
+        <tr><th>ID</th><th>Patient</th><th>Date</th><th>Reason</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for v in visits %}
+        <tr>
+          <td class="mm-td-id">#{{ v.id }}</td>
+          <td>{{ v.patient|default:"—" }}</td>
+          <td>{{ v.visit_date|default:v.date|default:"—" }}</td>
+          <td>{{ v.reason|default:v.chief_complaint|default:"—" }}</td>
+          <td><span class="mm-visit-status {{ v.status|default:'scheduled'|lower }}">{{ v.status|default:"Scheduled" }}</span></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="mm-empty">No visits found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

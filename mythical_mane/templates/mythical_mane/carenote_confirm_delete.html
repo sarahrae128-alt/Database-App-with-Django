@@ -1,0 +1,17 @@
+{% extends "mythical_mane/base.html" %}
+{% block title %}Delete Care Note{% endblock %}
+{% block extra_css %}<script src="https://cdn.tailwindcss.com"></script>{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto px-4 py-10 mt-16">
+  <div class="bg-white rounded-3xl border border-red-100 shadow-sm p-8 text-center">
+    <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">&#9888;</div>
+    <h2 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif;">Delete Care Note?</h2>
+    <p class="text-gray-500 text-sm mb-6">Delete note for <strong>{{ note.patient.name }}</strong>?</p>
+    <form method="post" class="flex gap-3 justify-center">
+      {% csrf_token %}
+      <button type="submit" class="px-6 py-2.5 bg-red-500 text-white text-sm rounded-full hover:bg-red-600 transition">Yes, Delete</button>
+      <a href="/carenotes/" class="px-6 py-2.5 border border-purple-200 text-purple-500 text-sm rounded-full hover:bg-purple-50 transition">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

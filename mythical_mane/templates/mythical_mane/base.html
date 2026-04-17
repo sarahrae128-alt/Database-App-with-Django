@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>{% block title %}Mythical Mane{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'mythical_mane/css/unicorn.css' %}">
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+<nav class="mm-nav">
+  <div class="mm-nav__inner">
+    <a class="mm-nav__logo" href="/">&#10022; Mythical Mane</a>
+    <ul class="mm-nav__links">
+      <li><a href="/">Dashboard</a></li>
+      <li><a href="/patients/">Patients</a></li>
+      <li><a href="/visits/">Visits</a></li>
+      <li><a href="/owners/">Owners</a></li>
+      <li><a href="/carenotes/">Care Notes</a></li>
+      <li><a href="/admin/" class="mm-nav__cta">Admin</a></li>
+    </ul>
+    <button class="mm-nav__burger" onclick="document.querySelector('.mm-nav__links').classList.toggle('is-open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<main>{% block content %}{% endblock %}</main>
+<footer class="mm-footer">
+  <div class="mm-footer__inner">
+    <div class="mm-footer__brand">
+      <span class="mm-footer__logo">&#10022; Mythical Mane</span>
+      <p>Veterinary Practice Management</p>
+    </div>
+    <div class="mm-footer__links">
+      <a href="/patients/">Patients</a>
+      <a href="/owners/">Owners</a>
+      <a href="/carenotes/">Care Notes</a>
+      <a href="/admin/">Admin</a>
+    </div>
+  </div>
+  <div class="mm-footer__bottom"><span>&copy; 2025 Mythical Mane.</span></div>
+</footer>
+<script src="{% static 'mythical_mane/js/unicorn.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

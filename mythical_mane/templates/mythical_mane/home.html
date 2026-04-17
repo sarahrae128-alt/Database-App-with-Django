@@ -1,0 +1,74 @@
+{% extends "mythical_mane/base.html" %}
+{% block title %}Dashboard — Mythical Mane{% endblock %}
+{% block content %}
+<div class="mm-dashboard">
+  <div class="mm-dash-header fade-up">
+    <div>
+      <p class="mm-label">&#10022; Supabase Connected</p>
+      <h1 class="mm-dash-title">Mythical Mane<br><em>Vet Dashboard</em></h1>
+    </div>
+    <div class="mm-dash-header-actions">
+      <a href="/patients/" class="mm-btn mm-btn--primary">All Patients</a>
+      <a href="/visits/" class="mm-btn mm-btn--ghost">All Visits</a>
+    </div>
+  </div>
+  <div class="mm-stats fade-up delay-1">
+    <div class="mm-stat-card glass">
+      <span class="mm-stat-icon">&#128062;</span>
+      <div class="mm-stat-body"><p class="mm-stat-label">Patients</p><p class="mm-stat-value">{{ total_patients }}</p></div>
+    </div>
+    <div class="mm-stat-card glass">
+      <span class="mm-stat-icon">&#128101;</span>
+      <div class="mm-stat-body"><p class="mm-stat-label">Owners</p><p class="mm-stat-value">{{ total_owners }}</p></div>
+    </div>
+    <div class="mm-stat-card glass">
+      <span class="mm-stat-icon">&#128203;</span>
+      <div class="mm-stat-body"><p class="mm-stat-label">Visits</p><p class="mm-stat-value">{{ total_visits }}</p></div>
+    </div>
+    <div class="mm-stat-card glass">
+      <span class="mm-stat-icon">&#128176;</span>
+      <div class="mm-stat-body"><p class="mm-stat-label">Invoices</p><p class="mm-stat-value">{{ total_invoices }}</p></div>
+    </div>
+  </div>
+  <div class="mm-dash-grid fade-up delay-2">
+    <div class="mm-panel glass">
+      <div class="mm-panel-header">
+        <h2>Recent Patients</h2>
+        <a href="/patients/" class="mm-panel-link">See all &rarr;</a>
+      </div>
+      <div class="mm-patient-list">
+        {% for p in recent_patients %}
+        <div class="mm-patient-row">
+          <div class="mm-patient-avatar">{{ p.name|first|upper }}</div>
+          <div class="mm-patient-info">
+            <p class="mm-patient-name">{{ p.name }}</p>
+            <p class="mm-patient-meta">{{ p.species_id|default:"Unknown" }} &middot; {{ p.color|default:"" }}</p>
+          </div>
+          <span class="mm-patient-badge">{{ p.owner.name|default:"No owner" }}</span>
+        </div>
+        {% empty %}<p class="mm-empty">No patients found.</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="mm-panel glass">
+      <div class="mm-panel-header">
+        <h2>Recent Visits</h2>
+        <a href="/visits/" class="mm-panel-link">See all &rarr;</a>
+      </div>
+      <div class="mm-visit-list">
+        {% for v in recent_visits %}
+        <div class="mm-visit-row">
+          <div class="mm-visit-dot"></div>
+          <div class="mm-visit-info">
+            <p class="mm-visit-title">{{ v.patient.name|default:"Unknown" }}</p>
+            <p class="mm-visit-meta">{{ v.start_at|date:"M d, Y"|default:"Unknown date" }} &middot; {{ v.reason|default:"No reason"|truncatechars:40 }}</p>
+          </div>
+          <span class="mm-visit-status scheduled">#{{ v.visit_id }}</span>
+        </div>
+        {% empty %}<p class="mm-empty">No visits found.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
